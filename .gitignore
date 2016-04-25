@@ -1,0 +1,23 @@
+*target/
+logs/
+
+encodings.xml
+vcs.xml
+
+# Mac
+.DS_Store
+
+Vim
+*.un~
+
+# Intellij
+.idea/
+*.iml
+*.ipr
+*.iws
+*.log
+
+atlassian-ide-plugin.xml
+
+*/src/main/resources/announcement/yammer-announcement.vm
+src/main/resources/announcement/yammer-announcement.vm
