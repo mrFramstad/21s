@@ -1,9 +1,6 @@
 *target/
 logs/
 
-encodings.xml
-vcs.xmlng
-
 # Mac
 .DS_Store
 
