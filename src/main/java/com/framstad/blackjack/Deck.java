@@ -11,11 +11,11 @@ public final class Deck {
     List <Integer> deck = new ArrayList<>();
 
     public Deck () {
-        IntStream.range(0, 52).forEach(card -> deck.add(card % 13 + 1));
         shuffle();
     }
 
     public void shuffle () {
+        IntStream.range(0, 52).forEach(card -> deck.add(card % 13 + 1));
         Collections.shuffle(deck, new Random(System.nanoTime()));
     }
 
@@ -24,6 +24,10 @@ public final class Deck {
             shuffle();
         }
         return deck.remove(0);
+    }
+
+    public int deckSize() {
+        return deck.size();
     }
 
     public void printDeck () {
