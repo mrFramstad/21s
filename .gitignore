@@ -2,7 +2,7 @@
 logs/
 
 encodings.xml
-vcs.xml
+vcs.xmlng
 
 # Mac
 .DS_Store
