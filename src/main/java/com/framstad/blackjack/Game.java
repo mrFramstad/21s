@@ -1,14 +1,11 @@
 package com.framstad.blackjack;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Game {
     public static void main( String[] args ) {
         Deck deck = new Deck();
-        Hand sam = new Hand(deck);
-        Hand dealer = new Hand(deck);
+        Hand sam = new Hand(new Integer[] {deck.pick(), deck.pick()});
+        Hand dealer = new Hand(new Integer[] {deck.pick(), deck.pick()});
         play(sam, dealer, deck);
     }
 

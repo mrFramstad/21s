@@ -1,16 +1,16 @@
 package com.framstad.blackjack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Hand {
-    private List<Integer> cards  = new ArrayList<>();
     protected final static int MIN_HAND_VALUE = 17;
     protected final static int MAX_HAND_VALUE = 21;
+    private List<Integer> cards  = new ArrayList<>();
 
-    public Hand(Deck deck) {
-        addCard(deck.pick());
-        addCard(deck.pick());
+    public Hand(Integer[] cards) {
+        Arrays.asList(cards).forEach(this::addCard);
     }
 
     public void addCard (int card) {
@@ -29,10 +29,6 @@ public class Hand {
         return handValue() > MAX_HAND_VALUE;
     }
 
-    public void printHand () {
-        cards.stream().forEach(card -> System.out.println(", " + card));
-    }
-
     private int caclculateCardValue (int card) {
         if (card == 1) {
             return 11;
@@ -42,6 +38,9 @@ public class Hand {
         return card;
     }
 
+    public void printHand () {
+        cards.stream().forEach(card -> System.out.println(", " + card));
+    }
 
 
 
