@@ -1,36 +1,61 @@
 package com.framstad.blackjack;
 
 
-public class Game {
-    public static void main( String[] args ) {
-        Deck deck = new Deck();
-        Hand sam = new Hand(new Integer[] {deck.pick(), deck.pick()});
-        Hand dealer = new Hand(new Integer[] {deck.pick(), deck.pick()});
-        play(sam, dealer, deck);
+public final class Game {
+    protected static final int SAM_WINS = 100;
+    protected static final int SAM_WINS_WITH_BLACKJACK = 110;
+    protected static final int DEALER_WINS = 200;
+    protected static final int DEALER_WINS_WITH_BLACKJACK = 210;
+    protected static final int ALL_PLAYERS_BUSTED = 300;
+
+    public static void main(final String[] args ) {
+        final Deck deck = new Deck();
+        final Hand sam = new Hand(new Integer[] {deck.pick(), deck.pick()});
+        final Hand dealer = new Hand(new Integer[] {deck.pick(), deck.pick()});
+        final Game game = new Game();
+
+        switch(game.play(sam, dealer, deck)) {
+            case SAM_WINS:
+                System.out.printf ("Sam WINS! Sam: %d, Dealer: %d.", sam.handValue(), dealer.handValue());
+                break;
+
+            case SAM_WINS_WITH_BLACKJACK:
+                System.out.printf ("Sam has BLACKJACK! Sam: %d, Dealer: %d.", sam.handValue(), dealer.handValue());
+                break;
+
+            case DEALER_WINS:
+                System.out.printf ("Dealer WINS! Sam: %d, Dealer: %d.", sam.handValue(), dealer.handValue());
+                break;
+
+            case DEALER_WINS_WITH_BLACKJACK:
+                System.out.printf ("Dealer has BLACKJACK! Sam: %d, Dealer: %d.", sam.handValue(), dealer.handValue());
+                break;
+
+            default:
+                System.out.printf ("Both players BUSTED: Sam: %d, Dealer: %d.", sam.handValue(), dealer.handValue());
+        }
     }
 
-    public static void play(Hand sam, Hand dealer, Deck deck) {
-        if (sam.hasBlackJack())     {System.out.println("Sam has BLACKJACK. Sam wins.");}
-        if (dealer.hasBlackJack())  {System.out.println("Dealer has BLACKJACK. Dealer wins.");}
+    public int play(final Hand sam, final Hand dealer, final Deck deck) {
+        if (sam.hasBlackJack())     {return SAM_WINS_WITH_BLACKJACK;}
+        if (dealer.hasBlackJack())  {return DEALER_WINS_WITH_BLACKJACK;}
 
         playSingleHand(sam, Hand.MIN_HAND_VALUE, deck);
-        if (sam.hasBusted()) {
-            System.out.printf("Sam busted. HandValue: %d. Dealer wins." ,sam.handValue());
-            return;
+        playSingleHand(dealer, sam.handValue() + 1, deck);
 
-        } else {
-            playSingleHand(dealer, sam.handValue() + 1, deck);
-            if (dealer.hasBusted()) {
-                System.out.printf("Dealer busted. HandValue: %d. Sam wins" ,dealer.handValue());
-                return;
-            }
-        }
+        if (sam.hasBusted() && dealer.hasBusted()) {return ALL_PLAYERS_BUSTED;}
 
-        System.out.printf ("Sam: %d, Dealer: %d. %s wins.", sam.handValue(), dealer.handValue(), sam.handValue() > dealer.handValue() ?
-                "Sam" : "Dealer" );
+        return winningHand(sam, dealer);
     }
 
-    private static void playSingleHand(Hand hand, int handMinValue, Deck deck) {
+    private int winningHand(final Hand sam, final Hand dealer) {
+        int samValue = sam.hasBusted() ? 0 : sam.handValue();
+        int dealerValue = dealer.hasBusted() ? 0 : dealer.handValue();
+
+        return samValue >= dealerValue ? SAM_WINS : DEALER_WINS;
+    }
+
+    private void playSingleHand(final Hand hand, final int handMinValue, final Deck deck) {
         while (hand.handValue() < handMinValue) {
             hand.addCard(deck.pick());
         }

@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Hand {
+public final class Hand {
     protected final static int MIN_HAND_VALUE = 17;
     protected final static int MAX_HAND_VALUE = 21;
     private List<Integer> cards  = new ArrayList<>();
 
-    public Hand(Integer[] cards) {
+    public Hand(final Integer[] cards) {
         Arrays.asList(cards).forEach(this::addCard);
     }
 
-    public void addCard (int card) {
+    public void addCard (final int card) {
         cards.add(card);
     }
 
@@ -29,7 +29,7 @@ public class Hand {
         return handValue() > MAX_HAND_VALUE;
     }
 
-    private int caclculateCardValue (int card) {
+    private int caclculateCardValue (final int card) {
         if (card == 1) {
             return 11;
         } else if (card > 9) {
