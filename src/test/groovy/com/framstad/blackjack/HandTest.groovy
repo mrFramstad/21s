@@ -7,10 +7,7 @@ class HandTest extends Specification {
 
     @Unroll
     def "Blackjack is blackjack"() {
-        def cards = new Integer[2]
-        cards[0] = card1
-        cards[1] = card2
-        def hand = new Hand (cards)
+        def hand = new Hand ([card1, card2] as Integer[])
 
         expect:
             hand.hasBlackJack() == result
@@ -29,21 +26,17 @@ class HandTest extends Specification {
 
     def "Two aces and the player is busted" () {
         given:
-            def cards = new Integer[2]
-            cards[0] = 1
-            cards[1] = 1
+            def card1 = 1
+            def card2 = 1
         when:
-            def hand = new Hand (cards)
+            def hand = new Hand ([card1, card2] as Integer[])
         then:
             hand.hasBusted()
     }
 
     @Unroll
     def "calculate hand value"() {
-        def cards = new Integer[2]
-        cards[0] = card1
-        cards[1] = card2
-        def hand = new Hand (cards)
+        def hand = new Hand ([card1, card2] as Integer[])
 
         expect:
             hand.handValue() == result
@@ -64,10 +57,7 @@ class HandTest extends Specification {
 
     def "Adding a card changes the players hand" () {
         given:
-            def cards = new Integer[2]
-            cards[0] = 8
-            cards[1] = 3
-            def hand = new Hand (cards)
+            def hand = new Hand ([8, 3] as Integer[])
             def initialHandValue = hand.handValue()
         when:
             hand.addCard(5)

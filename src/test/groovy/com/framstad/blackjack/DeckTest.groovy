@@ -32,35 +32,29 @@ class DeckTest extends Specification {
     def "A fresh deck contains four cards of each value" () {
         given:
             def deck = new Deck();
-            def valueMap = new HashMap<String, Integer>();
+            def map = ["1" : 0,"2" : 0,"3" : 0,"4" : 0,"5" : 0,"6" : 0,"7" : 0,"8" : 0,"9" : 0,"10" : 0,"11" : 0, "12" : 0, "13" : 0]
 
         when:
-            1.upto(13, {
-                valueMap.put("" + it, 0)
-            })
-
-
             1.upto(52, {
                 int card = deck.pick()
-                valueMap.put("" + card, ++valueMap.get("" + card))
+                map["" + card] = ++ map["" + card]
             })
 
         then:
-            //valueMap.each{ k, v -> println "${k}:${v}" }
-            valueMap.size() == 13
-            valueMap.get("1") == 4;
-            valueMap.get("2") == 4;
-            valueMap.get("3") == 4;
-            valueMap.get("4") == 4;
-            valueMap.get("5") == 4;
-            valueMap.get("6") == 4;
-            valueMap.get("7") == 4;
-            valueMap.get("8") == 4;
-            valueMap.get("9") == 4;
-            valueMap.get("10") == 4;
-            valueMap.get("11") == 4;
-            valueMap.get("12") == 4;
-            valueMap.get("13") == 4;
+            map.size() == 13
+            map["1"] == 4;
+            map["2"] == 4;
+            map["3"] == 4;
+            map["4"] == 4;
+            map["5"] == 4;
+            map["6"] == 4;
+            map["7"] == 4;
+            map["8"] == 4;
+            map["9"] == 4;
+            map["10"] == 4;
+            map["11"] == 4;
+            map["12"] == 4;
+            map["13"] == 4;
     }
 
     def "A deck is shuffled when the last card is picked" () {
