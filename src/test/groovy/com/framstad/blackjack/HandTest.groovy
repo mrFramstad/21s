@@ -25,11 +25,8 @@ class HandTest extends Specification {
     }
 
     def "Two aces and the player is busted" () {
-        given:
-            def card1 = 1
-            def card2 = 1
         when:
-            def hand = new Hand ([card1, card2] as Integer[])
+            def hand = new Hand ([1,1] as Integer[])
         then:
             hand.hasBusted()
     }
