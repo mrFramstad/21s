@@ -26,11 +26,7 @@ public final class Deck {
         return deck.remove(0);
     }
 
-    public int deckSize() {
+    public int cardsLeft() {
         return deck.size();
-    }
-
-    public void printDeck () {
-        deck.stream().forEach(card -> System.out.print(", " + card));
     }
 }

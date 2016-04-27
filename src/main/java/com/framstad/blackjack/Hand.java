@@ -17,16 +17,16 @@ public final class Hand {
         cards.add(card);
     }
 
-    public int handValue () {
+    public int value() {
         return cards.stream().mapToInt(this::caclculateCardValue).sum();
     }
 
     public boolean hasBlackJack () {
-        return cards.size() == 2 && handValue() == MAX_HAND_VALUE;
+        return cards.size() == 2 && value() == MAX_HAND_VALUE;
     }
 
     public boolean hasBusted () {
-        return handValue() > MAX_HAND_VALUE;
+        return value() > MAX_HAND_VALUE;
     }
 
     private int caclculateCardValue (final int card) {
@@ -37,13 +37,6 @@ public final class Hand {
         }
         return card;
     }
-
-    public void printHand () {
-        cards.stream().forEach(card -> System.out.println(", " + card));
-    }
-
-
-
 }
 
 

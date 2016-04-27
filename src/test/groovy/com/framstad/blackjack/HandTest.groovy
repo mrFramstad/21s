@@ -36,7 +36,7 @@ class HandTest extends Specification {
         def hand = new Hand ([card1, card2] as Integer[])
 
         expect:
-            hand.handValue() == result
+            hand.value() == result
 
         where:
             card1   | card2 | result
@@ -55,11 +55,11 @@ class HandTest extends Specification {
     def "Adding a card changes the players hand" () {
         given:
             def hand = new Hand ([8, 3] as Integer[])
-            def initialHandValue = hand.handValue()
+            def initialHandValue = hand.value()
         when:
             hand.addCard(5)
         then:
-            hand.handValue() != initialHandValue
-            hand.handValue() == 16
+            hand.value() != initialHandValue
+            hand.value() == 16
     }
 }

@@ -4,12 +4,10 @@ import spock.lang.Specification
 
 class DeckTest extends Specification {
     def "A fresh deck contains 52 cards"() {
-        given:
-            def deck = new Deck();
         when:
-            def size = deck.deckSize();
+            def deck = new Deck()
         then:
-            size == 52;
+            deck.cardsLeft()  == 52;
     }
 
     def "All cards in a deck have a value in the range [1..13]" () {
@@ -65,8 +63,8 @@ class DeckTest extends Specification {
             1.upto(52, {deck.pick()})
 
         then:
-            deck.deckSize() == 0
+            deck.cardsLeft() == 0
             deck.pick()
-            deck.deckSize() == 51
+            deck.cardsLeft() == 51
     }
 }
