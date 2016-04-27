@@ -2,7 +2,6 @@ package com.framstad.blackjack
 
 import spock.lang.Specification
 
-
 class GameTest extends Specification {
 
     def "Sam wins a tie of blackjack" () {
@@ -79,10 +78,8 @@ class GameTest extends Specification {
 
     def "Both players busts with a hand of 24" () {
         given:
-            def sam = buildHand(8,8)
-            sam.addCard(8)
-            def dealer = buildHand(8,8)
-            dealer.addCard(8)
+            def sam = buildHand(8,8, 8)
+            def dealer = buildHand(8,8,8)
             def deck = new Deck()
             def game = new Game()
 
@@ -93,10 +90,7 @@ class GameTest extends Specification {
             result == Game.ALL_PLAYERS_BUSTED
     }
 
-    def buildHand (card1, card2) {
-        def cards = new Integer[2]
-        cards[0] = card1
-        cards[1] = card2
-        return new Hand(cards)
+    def buildHand (def ... cards) {
+        return new Hand(cards as Integer[])
     }
 }

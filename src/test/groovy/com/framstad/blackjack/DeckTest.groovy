@@ -32,7 +32,6 @@ class DeckTest extends Specification {
     def "A fresh deck contains four cards of each value" () {
         given:
             def deck = new Deck();
-            def validRangeCount = 0;
             def valueMap = new HashMap<String, Integer>();
 
         when:
