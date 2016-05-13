@@ -6,8 +6,8 @@ class GameTest extends Specification {
 
     def "Sam wins a tie of blackjack" () {
         given:
-            def sam = buildHand(1,11)
-            def dealer = buildHand(1,11)
+            def sam = buildHand(new Card(Suit.Diamonds, 1), new Card(Suit.Hearts, 11))
+            def dealer = buildHand(new Card(Suit.Diamonds, 1), new Card(Suit.Hearts, 11))
             def deck = new Deck()
             def game = new Game()
 
@@ -20,8 +20,8 @@ class GameTest extends Specification {
 
     def "dealer must draw an extra card on a tie of 20 and am wins"() {
         given:
-            def sam = buildHand(10,10)
-            def dealer = buildHand(10,10)
+            def sam = buildHand(new Card(Suit.Diamonds, 10), new Card(Suit.Hearts, 10))
+            def dealer = buildHand(new Card(Suit.Diamonds, 10), new Card(Suit.Hearts, 10))
             def deck = new Deck()
             def game = new Game()
 
@@ -35,8 +35,8 @@ class GameTest extends Specification {
 
     def "Dealer wins with 20 when Sam has 18" () {
         given:
-            def sam = buildHand(10,8)
-            def dealer = buildHand(12,10)
+            def sam = buildHand(new Card(Suit.Diamonds, 10), new Card(Suit.Hearts, 8))
+            def dealer = buildHand(new Card(Suit.Diamonds, 12), new Card(Suit.Hearts, 10))
             def deck = new Deck()
             def game = new Game()
 
@@ -50,8 +50,8 @@ class GameTest extends Specification {
 
     def "Dealer wins with BLACJACK when Sam has 20" () {
         given:
-            def sam = buildHand(10,12)
-            def dealer = buildHand(1,11)
+            def sam = buildHand(new Card(Suit.Diamonds, 11), new Card(Suit.Hearts, 11))
+            def dealer = buildHand(new Card(Suit.Diamonds, 1), new Card(Suit.Hearts, 11))
             def deck = new Deck()
             def game = new Game()
 
@@ -64,8 +64,8 @@ class GameTest extends Specification {
 
     def "Sam wins with BLACJACK when dealer has initial 20" () {
         given:
-            def sam = buildHand(1,13)
-            def dealer = buildHand(12,11)
+            def sam = buildHand(new Card(Suit.Diamonds, 1), new Card(Suit.Hearts, 13))
+            def dealer = buildHand(new Card(Suit.Diamonds, 12), new Card(Suit.Hearts, 11))
             def deck = new Deck()
             def game = new Game()
 
@@ -78,8 +78,8 @@ class GameTest extends Specification {
 
     def "Both players busts with a hand of 24" () {
         given:
-            def sam = buildHand(8,8, 8)
-            def dealer = buildHand(8,8,8)
+            def sam = buildHand(new Card(Suit.Diamonds, 8), new Card(Suit.Hearts, 8),new Card(Suit.Diamonds, 8))
+            def dealer = buildHand(new Card(Suit.Diamonds, 8), new Card(Suit.Hearts, 8),new Card(Suit.Diamonds, 8))
             def deck = new Deck()
             def game = new Game()
 
@@ -91,6 +91,6 @@ class GameTest extends Specification {
     }
 
     def buildHand (def ... cards) {
-        return new Hand(cards as Integer[])
+        return new Hand(cards as Card[])
     }
 }

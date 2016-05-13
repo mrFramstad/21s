@@ -1,6 +1,8 @@
 package com.framstad.blackjack;
 
 
+import java.io.IOException;
+
 public final class Game {
     protected static final int SAM_WINS = 100;
     protected static final int SAM_WINS_WITH_BLACKJACK = 110;
@@ -8,32 +10,42 @@ public final class Game {
     protected static final int DEALER_WINS_WITH_BLACKJACK = 210;
     protected static final int ALL_PLAYERS_BUSTED = 300;
 
-    public static void main(final String[] args) {
-        final Deck deck = new Deck();
-        final Hand sam = new Hand(new Integer[]{deck.pick(), deck.pick()});
-        final Hand dealer = new Hand(new Integer[]{deck.pick(), deck.pick()});
+    public static void main(final String[] args) throws IOException {
+        System.out.println("######## LET'S PLAY BLACKJACK! ########");
+
+        final Deck deck = args.length == 0 ? new Deck() : new Deck(args[0]);
+
+        final Hand sam = new Hand(new Card[]{deck.pick(), deck.pick()});
+        final Hand dealer = new Hand(new Card[]{deck.pick(), deck.pick()});
         final Game game = new Game();
+        String result;
 
         switch (game.play(sam, dealer, deck)) {
             case SAM_WINS:
-                System.out.printf("Sam WINS! Sam: %d, Dealer: %d.", sam.value(), dealer.value());
+                result = String.format("Sam WINS! Sam: %d, Dealer: %d.", sam.value(), dealer.value());
                 break;
 
             case SAM_WINS_WITH_BLACKJACK:
-                System.out.printf("Sam has BLACKJACK! Sam: %d, Dealer: %d.", sam.value(), dealer.value());
+                result = String.format("Sam has BLACKJACK! Sam: %d, Dealer: %d.", sam.value(), dealer.value());
                 break;
 
             case DEALER_WINS:
-                System.out.printf("Dealer WINS! Sam: %d, Dealer: %d.", sam.value(), dealer.value());
+                result = String.format("Dealer WINS! Sam: %d, Dealer: %d.", sam.value(), dealer.value());
                 break;
 
             case DEALER_WINS_WITH_BLACKJACK:
-                System.out.printf("Dealer has BLACKJACK! Sam: %d, Dealer: %d.", sam.value(), dealer.value());
+                result = String.format("Dealer has BLACKJACK! Sam: %d, Dealer: %d.", sam.value(), dealer.value());
                 break;
 
             default:
-                System.out.printf("Both players BUSTED: Sam: %d, Dealer: %d.", sam.value(), dealer.value());
+                result = String.format("Both players BUSTED: Sam: %d, Dealer: %d.", sam.value(), dealer.value());
         }
+
+        System.out.println(String.format("Sam's hand: %s", sam.toString()));
+        System.out.println(String.format("Dealer's hand: %s", dealer.toString()));
+        System.out.println(result);
+        System.out.println("#######################################");
+
     }
 
     public int play(final Hand sam, final Hand dealer, final Deck deck) {

@@ -1,4 +1,9 @@
-Model the game
+To run:
+- mvn exec:java
+- mvn exec:java -Dexec.args=[path to file containing a deck ie: mvn exec:java -Dexec.args=src/main/resources/deck.txt
+
+To test:
+- mvn test
 
 - create a single deck of playing cards
 - two players (called Sam and the Dealer) who will play against each other
